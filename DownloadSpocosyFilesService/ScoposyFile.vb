@@ -58,8 +58,6 @@ Public Class ScoposyFile
                     Dim fullFilename As New String(id.ToString + ".xml")
                     fileNameList.Add(fullFilename)
 
-                    ' Log activity
-                    gobjEvent.WriteToEventLog("DownloadRemoteFiles : Processing file: " + fullFilename)
 
                     ' Leave cursor when we hit limit
                     If intCursorCount >= My.Settings.MaxFilesToDownload Then
@@ -81,14 +79,20 @@ Public Class ScoposyFile
         ' Loop through the files, download, delete from saved_xml
         For Each filename In fileNameList
 
+            ' Log activity
+            gobjEvent.WriteToEventLog("ScoposyFile Class : Download remote files processing file: " + filename, EventLogEntryType.Information)
+
             ' Ftp download the file and remove from remote server
-            ftpFile(filename)
+            FtpFile(filename)
 
             ' Delete the entry from saved_xml
             DeleteSavedXml(filename)
 
             ' Insert entry of saved_streammed_xml
             InsertLocalXml(filename)
+
+            ' Log activity
+            gobjEvent.WriteToEventLog("ScoposyFile Class : Download remote file processing completed", EventLogEntryType.Information)
 
         Next
 
@@ -102,18 +106,13 @@ Public Class ScoposyFile
         Dim LFN As String = My.Settings.LocalDownloadPath + filename
 
         Try
+
             ' Download file then delete
             ftp.DownloadFile(LFN, RFN)
 
-            ' Log activity
-            gobjEvent.WriteToEventLog("DownloadRemoteFiles : FTP completed for file: " + filename)
 
             ' Delete file
             ftp.DeleteFile(RFN)
-
-            ' Log activity
-            gobjEvent.WriteToEventLog("DownloadRemoteFiles : Deleted saved_xml row for file: " + filename)
-
 
 
         Catch ex As Exception
@@ -175,7 +174,13 @@ Public Class ScoposyFile
             myConnection.Open()
             myCommand.ExecuteNonQuery()
 
-        Catch
+            ' Log activity
+            gobjEvent.WriteToEventLog("ScoposyFile Class : Insert Local Xml successful for file: " + filename, EventLogEntryType.Information)
+
+        Catch ex As Exception
+
+            ' Log activity
+            gobjEvent.WriteToEventLog("ScoposyFile Class : Insert Local Xml failed for file: " + filename + " Msg: " + ex.Message, EventLogEntryType.Error)
 
         Finally
 

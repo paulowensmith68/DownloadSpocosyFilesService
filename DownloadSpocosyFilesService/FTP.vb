@@ -42,7 +42,13 @@
             responseStream.CopyTo(fs)
             responseStream.Close()
             _response.Close()
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Download file completed successfully for file: " + _FileName, EventLogEntryType.Information)
+
         Catch ex As Exception
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Download file failed for file: " + _FileName + " Msg: " + ex.Message, EventLogEntryType.Error)
+
         End Try
     End Sub
     Public Function GetDirectory(ByVal _ftpPath As String) As List(Of String)
@@ -63,7 +69,13 @@
             Next
             _reader.Close()
             _response.Close()
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Get Directory completed successfully: " + _ftpPath, EventLogEntryType.Information)
+
         Catch ex As Exception
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Get Directory failed for path: " + _ftpPath + " Msg: " + ex.Message, EventLogEntryType.Error)
+
         End Try
         Return ret
     End Function
@@ -80,7 +92,13 @@
             ret = _reader.ReadToEnd
             _reader.Close()
             _response.Close()
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Delete File completed successfully: " + _ftpPath, EventLogEntryType.Information)
+
         Catch ex As Exception
+
+            gobjEvent.WriteToEventLog("FTP Class : FTP Delete File failed for path: " + _ftpPath + " Msg: " + ex.Message, EventLogEntryType.Error)
+
         End Try
         Return ret
     End Function
