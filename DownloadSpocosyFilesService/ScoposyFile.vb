@@ -108,8 +108,7 @@ Public Class ScoposyFile
         Try
 
             ' Download file then delete
-            ftp.DownloadFile(LFN, RFN)
-
+            ftp.NewDownload(LFN, RFN)
 
             ' Delete file
             ftp.DeleteFile(RFN)
@@ -164,7 +163,7 @@ Public Class ScoposyFile
             End If
         End If
 
-            Dim strId As String = filename.Replace(".xml", "")
+        Dim strId As String = filename.Replace(".xml", "")
         Dim id As Integer = Convert.ToInt32(strId)
         myCommand.Parameters.Add(New MySqlParameter("id", id))
         myCommand.Parameters.Add(New MySqlParameter("stream", intNextStream))
