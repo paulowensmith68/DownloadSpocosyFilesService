@@ -24,4 +24,9 @@
     Public gintKillRuntimeThressholdMillisecs As Integer
     Public gblnProcessHasExited As Boolean
 
+    '-------------------------------------------------
+    '-   Random number                                     -
+    '-------------------------------------------------
+    Public gintNextStream As Integer = 0
+
 End Module

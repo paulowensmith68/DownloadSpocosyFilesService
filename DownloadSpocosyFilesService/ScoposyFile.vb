@@ -22,8 +22,7 @@ Public Class ScoposyFile
     ' Ftp variables
     Public ftp As New FTP(My.Settings.RemoteServerUser, My.Settings.RemoteServerPassword)
 
-    ' Stream integer
-    Public intNextStream As Integer = 0
+
 
     Public Sub DownloadFiles()
         '-----------------------------------------------------------------------*
@@ -154,19 +153,19 @@ Public Class ScoposyFile
         myCommand.Connection = myConnection
 
         ' Set stream number
-        If intNextStream = 0 Then
-            intNextStream = 1
+        If gintNextStream = 0 Then
+            gintNextStream = 1
         Else
-            intNextStream = intNextStream + 1
-            If intNextStream > My.Settings.NumberOfStreams Then
-                intNextStream = 1
+            gintNextStream = gintNextStream + 1
+            If gintNextStream > My.Settings.NumberOfStreams Then
+                gintNextStream = 1
             End If
         End If
 
         Dim strId As String = filename.Replace(".xml", "")
         Dim id As Integer = Convert.ToInt32(strId)
         myCommand.Parameters.Add(New MySqlParameter("id", id))
-        myCommand.Parameters.Add(New MySqlParameter("stream", intNextStream))
+        myCommand.Parameters.Add(New MySqlParameter("stream", gintNextStream))
 
         Try
 
