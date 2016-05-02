@@ -112,9 +112,8 @@ Public Class ScoposyFile
             ' Delete file
             ftp.DeleteFile(RFN)
 
-
         Catch ex As Exception
-
+            gobjEvent.WriteToEventLog("SpocosyFile Class : FTP File failed for file: " + filename + " Msg: " + ex.Message, EventLogEntryType.Error)
         End Try
 
     End Sub

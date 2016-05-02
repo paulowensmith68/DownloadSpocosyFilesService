@@ -111,6 +111,7 @@ Public Class FTP
 
     Public Function NewDownload(ByVal _FileName As String, ByVal _ftpDownloadPath As String, Optional ByVal PermitOverwrite As Boolean = True) As Boolean
 
+        Dim blnReturn As Boolean = True
         Dim ftp As System.Net.FtpWebRequest = System.Net.WebRequest.Create(_ftpDownloadPath)
         ftp.KeepAlive = False
         ftp.Method = System.Net.WebRequestMethods.Ftp.DownloadFile
@@ -135,18 +136,18 @@ Public Class FTP
                         fs.Flush()
                         fs.Close()
                     Catch ex As Exception
+                        blnReturn = False
                         'catch error and delete file only partially downloaded
+                        gobjEvent.WriteToEventLog("FTP Class : FTP failed for file: " + _FileName + " Msg: " + ex.Message, EventLogEntryType.Error)
                         fs.Close()
                         'delete target file as it's incomplete
                         targetFI.Delete()
-                        'Throw
-                        gobjEvent.WriteToEventLog("FTP Class : FTP failed for file: " + _FileName, EventLogEntryType.Error)
                     End Try
                 End Using
                 responseStream.Close()
             End Using
             response.Close()
         End Using
-        Return True
+        Return blnReturn
     End Function
 End Class
