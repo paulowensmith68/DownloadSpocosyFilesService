@@ -82,7 +82,23 @@ Public Class ScoposyFile
             gobjEvent.WriteToEventLog("ScoposyFile Class : Download remote files processing file: " + filename, EventLogEntryType.Information)
 
             ' Ftp download the file and remove from remote server
-            FtpFile(filename)
+            Dim blnReturn As Boolean
+            blnReturn = FtpFile(filename)
+            If blnReturn = False Then
+                gobjEvent.WriteToEventLog("ScoposyFile Class : Retry FTP 1, sleep for 2 secs first: " + filename, EventLogEntryType.Information)
+                Threading.Thread.Sleep(2000)
+                blnReturn = FtpFile(filename)
+                If blnReturn = False Then
+                    gobjEvent.WriteToEventLog("ScoposyFile Class : Retry FTP 2, sleep for 2 secs first: " + filename, EventLogEntryType.Information)
+                    Threading.Thread.Sleep(2000)
+                    blnReturn = FtpFile(filename)
+                    If blnReturn = False Then
+                        gobjEvent.WriteToEventLog("ScoposyFile Class : Retry FTP 3, sleep for 2 secs first: " + filename, EventLogEntryType.Information)
+                        Threading.Thread.Sleep(2000)
+                        blnReturn = FtpFile(filename)
+                    End If
+                End If
+            End If
 
             ' Delete the entry from saved_xml
             DeleteSavedXml(filename)
@@ -98,7 +114,7 @@ Public Class ScoposyFile
         ftp = Nothing
 
     End Sub
-    Public Sub FtpFile(filename As String)
+    Public Function FtpFile(filename As String) As Boolean
 
         ' Set filenames
         Dim RFN As String = My.Settings.RemoteFtpServer + My.Settings.RemoteFtpPath + filename
@@ -114,9 +130,12 @@ Public Class ScoposyFile
 
         Catch ex As Exception
             gobjEvent.WriteToEventLog("SpocosyFile Class : FTP File failed for file: " + filename + " Msg: " + ex.Message, EventLogEntryType.Error)
+            Return False
         End Try
 
-    End Sub
+        Return True
+
+    End Function
 
     Private Sub DeleteSavedXml(filename As String)
         'Delete id from saved_xml (log table)
@@ -147,7 +166,7 @@ Public Class ScoposyFile
 
         'Insert id into local_xml (log table)
         Dim myConnection As New MySqlConnection(connectionString)
-        Dim myCommand As New MySqlCommand("INSERT INTO `oddsmatching`.`saved_streammed_xml` (`id`, `stream`) VALUES (@id, @stream)")
+        Dim myCommand As New MySqlCommand("INSERT INTO `saved_streammed_xml` (`id`, `stream`) VALUES (@id, @stream)")
         myCommand.CommandType = CommandType.Text
         myCommand.Connection = myConnection
 

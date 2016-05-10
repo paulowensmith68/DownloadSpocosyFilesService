@@ -11,15 +11,17 @@
     <Setting Name="ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Database=OddsMatching;Data Source=eu-cdbr-azure-north-e.cloudapp.net;User Id=b083cb50265fec;Password=263fb5f7;persistsecurityinfo=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;
+User Id=uda3e9d92e3c90;Password=p0bf2240fc2b5a;Host=db-1b460c3b71-1.cloudapp.net;Port=3310;Database=oddsp1;persistsecurityinfo=True&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Database=OddsMatching;Data Source=eu-cdbr-azure-north-e.cloudapp.net;User Id=b083cb50265fec;Password=263fb5f7;persistsecurityinfo=True</Value>
+      <Value Profile="(Default)">
+User Id=uda3e9d92e3c90;Password=p0bf2240fc2b5a;Host=db-1b460c3b71-1.cloudapp.net;Port=3310;Database=oddsp1;persistsecurityinfo=True</Value>
     </Setting>
     <Setting Name="RemoteFtpServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">ftp://waws-prod-db3-025.ftp.azurewebsites.windows.net</Value>
     </Setting>
     <Setting Name="RemoteServerUser" Type="System.String" Scope="User">
-      <Value Profile="(Default)">WebAppBookmakerFeed20160413071258\paulowensmith1968</Value>
+      <Value Profile="(Default)">WebAppBookmakerFeed20160413071258\paulowensmith19682</Value>
     </Setting>
     <Setting Name="RemoteServerPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">PS?pos68</Value>

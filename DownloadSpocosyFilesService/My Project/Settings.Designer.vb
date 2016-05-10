@@ -81,8 +81,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Database=OddsMatching;Data Source=eu-cdbr-azure-north-e.cloudapp.net;User Id=b083"& _ 
-            "cb50265fec;Password=263fb5f7;persistsecurityinfo=True")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute(""&Global.Microsoft.VisualBasic.ChrW(10)&"User Id=uda3e9d92e3c90;Password=p0bf2240fc2b5a;Host=db-1b460c3b71-1.cloudapp.net"& _ 
+            ";Port=3310;Database=oddsp1;persistsecurityinfo=True")>  _
         Public ReadOnly Property ConnectionString() As String
             Get
                 Return CType(Me("ConnectionString"),String)
@@ -103,7 +103,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("WebAppBookmakerFeed20160413071258\paulowensmith1968")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("WebAppBookmakerFeed20160413071258\paulowensmith19682")>  _
         Public Property RemoteServerUser() As String
             Get
                 Return CType(Me("RemoteServerUser"),String)
